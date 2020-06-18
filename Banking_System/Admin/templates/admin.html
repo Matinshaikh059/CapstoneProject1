@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bank</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<style>		
+		
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+			background-color: #111;
+			text-decoration:none;	
+		}
+		a:hover:not(.active) {
+			background-color: #a6a6a6;
+			text-decoration:underline;
+		}
+		
+		img:hover:not(.active) {
+			opacity:0.6;
+		}
+		
+		.active {
+			background-color: #4CAF50;
+		}
+		
+		a:link, a:visited {
+			color: white;
+			text-decoration: none;
+			cursor: auto;
+		}
+		
+		
+		.search-form {
+			border-radius: 30px 0px 0px 30px;
+		}
+		 .search-btn {
+			border-radius: 0px 30px 30px 0px;
+			cursor:pointer;
+		}
+
+		.imgcontainer {
+		  text-align: center;
+		  margin: 24px 0 12px 0;
+		  position: relative;
+		}
+		.imgcontainer {
+		  text-align: center;
+		  position: relative;
+		}
+
+		img.avatar {
+		  width:8%;
+		  border-radius: 20%;
+		  margin-top : 70px;
+		  margin-right:130px;
+		  margin-bottom:0px;
+		}
+		img.avatar1 {
+		  width:8%;
+		  border-radius: 20%;
+		  margin-top : 70px;
+		  margin-left:130px;
+		  margin-bottom:0px;
+		}
+		.label1 {
+		  text-align: left;
+		  margin-right:100px;
+		  margin-top:0px;
+		  font-size:16px;
+		}
+		.label2 {
+		  text-align: right ;
+		  margin-left:100px;
+		  margin-top:0px;
+		  font-size:16px;
+		}
+		/* Extra styles for the cancel button */
+		.cancelbtn {
+		  width: auto;
+		  padding: 10px 18px;
+		  background-color: #f44336;
+		}
+		button:hover {
+		  opacity: 0.8;
+		}
+		
+		span.psw {
+		  float: right;
+		  padding-top: 16px;
+		}
+
+		/* The Modal (background) */
+		.modal {
+		  position: fixed; 
+		  left: 0;
+		  top: 0;
+		  padding-top: 70px;
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		  width: 90%;
+
+		}
+
+		
+	</style>
+</head>
+<body>
+
+<div class = "container-fluid">
+
+	<!-- The heading Bank -->
+
+	<div class="jumbotron" style = "margin:0px;">
+		<h1 style = "text-align:center;">Bank</h1>
+	</div>
+	<!-- navigation bar -->
+			
+	<nav class="navbar navbar-inverse" style = "margin:0px;">
+
+		<ul class="nav navbar-nav">
+		  <li><a href="#Home">Home</a></li>
+		  <li><a href="#Logout">Logout</a></li>
+		  
+		</ul>
+	</nav>
+	
+	<div id="main_page">
+	<!-- search bar for customer -->
+	<center><form id="search-form" action="search_customer" class="form-inline" role="form" method="post"style = "width : 100%">
+		{% csrf_token %}
+		<div class="input-group" style = "width : 40%; margin-top:50px;margin-bottom:10px;" >
+			<input type="text" class="form-control search-form" name="cust_search" placeholder="Customer ID" style = "padding:20px; width : 100%;">
+			<span class="input-group-btn"><input type="submit" class="btn btn-primary search-btn" value = "Search" style = "padding : 10px;width : 100%;> <i class="fa fa-search"></i></span>
+		</div>
+
+	</form>
+	</center>
+	
+	<!-- search bar for employee-->
+	
+	<center><form id="search-form1" action = "search_employee" class="form-inline" role="form" method="post" style = "width : 100%">
+		{% csrf_token %}
+		<div class="input-group" style = "width : 40%; margin-top:50px;margin-bottom:10px;" >
+			<input type="text" class="form-control search-form" name = "emp_search" placeholder="Employee Id" style = "padding:20px; width : 100%;">
+			<span class="input-group-btn"><input type="submit" class="btn btn-primary search-btn" value = "Search" style = "padding : 10px;width : 100%;<i class="fa fa-search"></i></span>
+		</div>
+
+	</form>
+	</center>
+	<!-- images for add and remove employee -->
+	<center>
+		<div class = "imgcontainer" style = "width : 80%;">
+			<img src = "/media/add_user.jpg" class = "avatar" id = "myBtn2">
+			<img src = "/media/remove_user.jpg" class = "avatar1" id = "myBtn3" >
+		</div>
+	</center>
+	<center>
+		<div class = "imgcontainer" style = "width :100%;" >
+			<a href = "#" class = "label1"  id = "myBtn"  style = "cursor:auto;color:black;padding:2px;margin-right:110px;margin-top:0px;">Add Employee</a>
+			<a href = "#" class = "label2" id = "myBtn1"style = "cursor:auto;color:black;padding:2px;margin-left:120px;margin-top:0px;">Remove Employee</a>
+		</div>
+	</center>
+	</div>
+
+</div>
+
+<!-- modal to add employee -->
+
+<div class="modal fade" id="add_employee" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px;" >
+        <div class="modal-body" style="padding:25px 25px;">
+		  <form role="form" method="post" action = "add_employee" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="form-group" style = "margin-bottom:25px;">
+				<label for="id">Id: </label>
+				<input type="text" class="form-control" name="id" placeholder="Enter id" style = "width:55%;float:right;" required>
+			</div>
+
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Name">Name: </label>
+              <input type="text" class="form-control" name="Name" placeholder="Enter Name" style = "width:55%;float:right;" required>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Phone_Number">Phone No.: </label>
+              <input type="text" class="form-control" name="Phone_Number" placeholder="Enter phone number" style = "width:55%;float:right;" required>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Street_Address">Street Address: </label>
+              <input type="text" class="form-control" name="Street_address" placeholder="Enter House Number" style = "width:55%;float:right;" required>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="City">City: </label>
+              <input type="text" class="form-control" name="City" placeholder="Enter City" style = "width:55%;float:right;" required>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="State">State: </label>
+              <select name="State" style = "width:55%;float:right;padding:7px;">
+                <option value="_blank">Select</option>
+                <option value="Andra Pradesh">Andra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu & Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerela">Kerela</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashatra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizorm">Mizorm</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="_blank">Select</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option><option value="_blank">Select</option>
+                <option value="Uttrakhand">Uttrakhand</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Lakshadeep">Lakshadeep</option>
+                <option value="Pondicherry">Pondicherry</option>  
+              </select>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Zip_Code">Zip Code: </label>
+              <input type="text" class="form-control" name="Zip_Code" placeholder="Enter Zip Code" style = "width:55%;float:right;"required>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Department">Department: </label>
+			    <select class="form-control" name="Department" style = "width:55%;float:right;">
+					<option value = "Teller">Teller</option>
+					<option value = "Customer Service">Customer Service</option>
+					<option value = "Loan Servicing">Loan Servicing</option>
+					<option value = "Cash Management">Cash Management</option>
+					<option value = "Electronic Banking">Electronic Banking</option>
+					<option value = "Mortage Banking">Mortage Banking</option>
+				</select>
+            </div>
+			
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Salary">Salary: </label>
+              <input type="text" class="form-control" name="Salary" placeholder="Enter Salary" style = "width:55%;float:right;"required>
+			</div>
+			
+			<div class="form-group" style = "margin-bottom:25px;">
+				<label for="Image">Image: </label>
+				<input type="file" class="form-control" name="Image" style = "width:55%;float:right;" required>
+			</div>
+			
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-success btn-default pull-left"  value = "ADD" style = "margin-left:5px;">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
+			  </div>
+			</div>
+
+          </form>
+        </div>
+        
+	  
+      
+    </div>
+</div>
+
+<!-- modal to remove employee-->
+
+<div class="modal fade" id="remove_employee" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:80%;">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+         	<h4 class="modal-title">Remove Employee</h4>
+        </div>
+        <div class="modal-body" style="padding:25px 25px;">
+          <form role="form" method="post" action="remove_employee">
+			  {% csrf_token %}
+            <div class="form-group" style = "margin-bottom:0px;">
+              <label for="Employee_Id" style = " margin-top: 10px"> Employee ID : </label>
+              <input type="text" class="form-control" name="Employee_Id" placeholder="Enter Employee_Id" style = "width:60%;float:right;padding:2px;margin-top:5px;" required><br><br>
+
+			</div>
+			
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-success btn-default pull-left" value="Confirm" style = "margin-left:35px;">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:35px;">Cancel</button>
+			</div>
+
+          </form>
+        </div>
+		
+        
+      </div>
+      
+    </div>
+</div>
+
+<!-- Setting Transaction Limit -->
+<div class="modal fade" id="transaction_limit" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:80%;">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+         	<h4 class="modal-title">Transaction Limit</h4>
+        </div>
+        <div class="modal-body" style="padding:25px 25px;">
+          <form role="form" method="post" action="set_transaction_limit">
+			  {% csrf_token %}
+
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="Ac_no" style = " margin-top: 10px">Ac_no: </label>
+				<select class="form-control" name="account_no" style = "width:60%;float:right;">
+					{% for account in accounts_Info %}
+					<option value = "{{account.Ac_no}}">{{account.Ac_no}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+            <div class="form-group" style = "margin-bottom:0px;">
+              <label for="transaction_limit" style = " margin-top: 10px"> Limit : </label>
+              <input type="text" class="form-control" name="transaction_limit" placeholder="Enter Limit" style = "width:60%;float:right;padding:2px;margin-top:5px;" required><br><br>
+			</div>
+			
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-success btn-default pull-left" value="Confirm" style = "margin-left:35px;">
+				<button type="button" data-dismiss="modal" class="btn btn-danger btn-default pull-right" style = "margin-right:35px;">Cancel</button>
+			</div>
+
+          </form>
+        </div>
+		
+        
+      </div>
+      
+    </div>
+</div>
+
+<!--  panel for details about customer -->
+<center>
+<div class="panel panel-default" id="details_about_customer" style = "display :none; width:90%;margin:20px;">
+    <div class="container-fluid">
+      <!-- Modal content-->
+      
+        <div class="panel-body" style="padding:25px 25px;">
+			<div class = "media">
+				<div class= "media-body">
+					
+					<table class = "table table-bordered">
+						<tbody>
+						
+							<tr>
+								<td style = "width :40%;">Account Holder</td>
+								<td>{{Customer_Info.name}}</td>
+							</tr>
+							<tr>
+								<td>Customer ID</td>
+								<td>{{Customer_Info.id}}</td>
+							</tr>
+							<tr>
+								<td>Phone Number</td>
+								<td>{{Customer_Info.Phone_no}}</td>
+							</tr>
+							<tr>
+								<td>Street Address</td>
+								<td>{{Customer_Info.Street_add}}</td>
+							</tr>
+							<tr>
+								<td>City</td>
+								<td>{{Customer_Info.City}}</td>
+							</tr>
+							<tr>
+								<td>State</td>
+								<td>{{Customer_Info.State}}</td>
+							</tr>
+							<tr>
+								<td>Zip Code</td>
+								<td>{{Customer_Info.Zipcode}}</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					{% for account in accounts_Info %}
+					<table class = "table table-bordered">
+						<tbody>
+						
+							<tr>
+								<td style = "width:40%;">Account Number</td>
+								<td>{{account.Ac_no}}</td>
+							</tr>
+							<tr>
+								<td>Balance</td>
+								<td>{{account.Ac_balance}}</td>
+							</tr>
+							<tr>
+								<td>Transaction Limit</td>
+								<td>{{account.Trans_limit}}</td>
+							</tr>
+						</tbody>
+					</table>
+					{% endfor %}
+
+				</div>
+				<div class="media-right">
+					<img src = "{{Customer_Info.Image.url}}" style = "width:150px;height : 150px; padding-left:30px;">
+				</div>
+				<button type="button" id="set_transaction_limit" class="btn btn-danger btn-default pull-left" style = "margin-right:35px;">Set Transaction limit</button>
+				<button type="button" id = "cancel_data" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:35px;">Cancel</button>
+			</div>
+	
+		</div>
+	</div>
+</div>
+		
+</center>
+
+<!--  panel for details about employee -->
+
+<center>
+<div class="panel panel-default" id="employee_details" style = "display : none;width:90%;margin:20px;">
+		<div class="container-fluid">
+		  <!-- Modal content-->
+		  
+			<div class="panel-body" style="padding:25px 25px;">
+				<div class = "media">
+				<div class= "media-body">
+					
+					<table class = "table table-bordered">
+						<tbody>		
+							<tr>
+								<td style = "width :40%;">Name</td>
+								<td>{{Emp_Info.name}}</td>
+							</tr>
+							<tr>
+								<td>Employee ID</td>
+								<td>{{Emp_Info.id}}</td>
+							</tr>
+							<tr>
+								<td>Phone Number</td>
+								<td>{{Emp_Info.Phone_no}}</td>
+							</tr>
+							<tr>
+								<td>Street Address</td>
+								<td>{{Emp_Info.Street_add}}</td>
+							</tr>
+							<tr>
+								<td>City</td>
+								<td>{{Emp_Info.City}}</td>
+							</tr>
+							<tr>
+								<td>State</td>
+								<td>{{Emp_Info.State}}</td>
+							</tr>
+							<tr>
+								<td>Zip Code</td>
+								<td>{{Emp_Info.Zipcode}}</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table class = "table table-bordered">
+						<tbody>
+						
+							<tr>
+								<td style = "width:40%;">Department</td>
+								<td>{{Emp_Info.Department}}</td>
+							</tr>
+							<tr>
+								<td>Salary</td>
+								<td>{{Emp_Info.Salary}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="media-right">
+					<img src = "{{Emp_Info.Image.url}}" style = "width:150px; height : 150px;padding-left : 30px;">
+				</div>
+				<button type="button" id="Update_Info" class="btn btn-success btn-default pull-left" style = "margin-right:35px;">Update Info</button>
+				<button type="button" id = "cancel_empdata" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:35px;">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+</center>
+<!--update info for employee-->
+<div class="modal fade" id="update_employee_details" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:100%;">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+         	<h4 class="modal-title">Update Details</h4>
+        </div>
+        <div class="modal-body" style="padding:25px 25px;">
+          <form role="form" method="post" action="update_emp_details" enctype="multipart/form-data">
+			  {% csrf_token %}
+
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="id" style = " margin-top: 10px">Emp ID: </label>
+				<input type="text" class="form-control" name="id"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.id}}" readonly><br><br>
+			</div>
+
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="name" style = " margin-top: 10px">Name: </label>
+				<input type="text" class="form-control" name="name"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.name}}" required><br><br>
+			</div>
+
+			
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="Phone_no" style = " margin-top: 10px">Phone Number: </label>
+				<input type="text" class="form-control" name="Phone_no"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.Phone_no}}"required><br><br>
+			</div>
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="Street_add" style = " margin-top: 10px">Street Address: </label>
+				<input type="text" class="form-control" name="Street_add"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.Street_add}}" required"><br><br>
+			</div>
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="City" style = " margin-top: 10px">City: </label>
+				<input type="text" class="form-control" name="City"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.City}}" required><br><br>
+			</div>
+			<div class="form-group" style = "margin-bottom:25px;">
+				<label for="State">State: </label>
+				<select name="State" style = "width:60%;float:right;padding:7px;" required>
+				  <option value="{{Emp_Info.State}}" selected>{{Emp_Info.State}}</option>
+				  <option value="Andra Pradesh">Andra Pradesh</option>
+				  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+				  <option value="Assam">Assam</option>
+				  <option value="Bihar">Bihar</option>
+				  <option value="Chhattisgarh">Chhattisgarh</option>
+				  <option value="Goa">Goa</option>
+				  <option value="Gujrat">Gujrat</option>
+				  <option value="Haryana">Haryana</option>
+				  <option value="Himachal Pradesh">Himachal Pradesh</option>
+				  <option value="Jammu & Kashmir">Jammu and Kashmir</option>
+				  <option value="Jharkhand">Jharkhand</option>
+				  <option value="Karnataka">Karnataka</option>
+				  <option value="Kerela">Kerela</option>
+				  <option value="Madhya Pradesh">Madhya Pradesh</option>
+				  <option value="Maharashatra">Maharashtra</option>
+				  <option value="Manipur">Manipur</option>
+				  <option value="Meghalaya">Meghalaya</option>
+				  <option value="Mizorm">Mizorm</option>
+				  <option value="Nagaland">Nagaland</option>
+				  <option value="Odisha">Odisha</option>
+				  <option value="Punjab">Punjab</option>
+				  <option value="Rajasthan">Rajasthan</option>
+				  <option value="Sikkim">Sikkim</option>
+				  <option value="_blank">Select</option>
+				  <option value="Tamil Nadu">Tamil Nadu</option>
+				  <option value="Telangana">Telangana</option>
+				  <option value="Tripura">Tripura</option><option value="_blank">Select</option>
+				  <option value="Uttrakhand">Uttrakhand</option>
+				  <option value="Uttar Pradesh">Uttar Pradesh</option>
+				  <option value="West Bengal">West Bengal</option>
+				  <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+				  <option value="Chandigarh">Chandigarh</option>
+				  <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+				  <option value="Daman and Diu">Daman and Diu</option>
+				  <option value="Delhi">Delhi</option>
+				  <option value="Lakshadeep">Lakshadeep</option>
+				  <option value="Pondicherry">Pondicherry</option>  
+				</select>
+			  </div>
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="Zipcode" style = " margin-top: 10px">Zipcode: </label>
+				<input type="text" class="form-control" name="Zipcode"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.Zipcode}}" required><br><br>
+			</div>
+            <div class="form-group" style = "margin-bottom:25px;">
+				<label for="Department">Department: </label>
+				  <select class="form-control" name="Department" style = "width:60%;float:right;" required>
+					  <option value = "{{Emp_Info.Department}}" selected>{{Emp_Info.Department}}</option>
+					  <option value = "Teller">Teller</option>
+					  <option value = "Customer Service">Customer Service</option>
+					  <option value = "Loan Servicing">Loan Servicing</option>
+					  <option value = "Cash Management">Cash Management</option>
+					  <option value = "Electronic Banking">Electronic Banking</option>
+					  <option value = "Mortage Banking">Mortage Banking</option>
+				  </select>
+			  </div>
+			<div class="form-group" style = "margin-bottom:0px;">
+				<label for="Salary" style = " margin-top: 10px">Salary: </label>
+				<input type="text" class="form-control" name="Salary"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "{{Emp_Info.Salary}}" required><br><br>
+			</div>
+			
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-success btn-default pull-left" value="Confirm" style = "margin-left:35px;">
+				<button type="button" data-dismiss="modal" class="btn btn-danger btn-default pull-right" style = "margin-right:35px;">Cancel</button>
+			</div>
+
+          </form>
+        </div>
+		
+        
+      </div>
+      
+    </div>
+</div>
+	
+<script>
+// Get the modal
+
+$(document).ready(function(){
+  $("#set_transaction_limit").click(function(){
+    $("#transaction_limit").modal();
+  });
+});
+
+$(document).ready(function(){
+  $("#Update_Info").click(function(){
+    $("#update_employee_details").modal();
+  });
+});
+
+//jquery to add employee from button -->
+
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $("#add_employee").modal();
+  });
+});
+
+//<!--jquery to remove employee from button -->
+
+$(document).ready(function(){
+  $("#myBtn1").click(function(){
+    $("#remove_employee").modal();
+  });
+});
+
+//<!--   jquery to add employee from image-->
+
+$(document).ready(function(){
+  $("#myBtn2").click(function(){
+    $("#add_employee").modal();
+  });
+});
+
+//<!--jquery to remove employee from image-->
+$(document).ready(function(){
+  $("#myBtn3").click(function(){
+    $("#remove_employee").modal();
+  });
+});
+
+//<!--  jquery to open panel for customer from search bar-->
+x = '{{Customer_select}}'
+
+if(x == '0')
+{
+	document.getElementById("main_page").style.display = "none";
+	document.getElementById("details_about_customer").style.display = "block";
+
+}
+$(document).ready(function(){
+  $("#cancel_data").click(function(){
+    document.getElementById("main_page").style.display = "block";
+	document.getElementById("details_about_customer").style.display = "none";
+  });
+});
+
+
+//<!-- jquery to open panel for employee from search bar -->
+var y = '{{Employee_select}}'
+
+if( y == '0')
+{
+	document.getElementById("main_page").style.display = "none";
+	document.getElementById("employee_details").style.display = "block";
+
+}
+$(document).ready(function(){
+  $("#cancel_empdata").click(function(){
+    document.getElementById("main_page").style.display = "block";
+	document.getElementById("employee_details").style.display = "none";
+  });
+});
+
+
+
+
+// var message = {{messages}}		
+// if(message.length > 0)
+// {
+// alert(message)
+// }
+</script>
+
+
+</body>
+</head>
+</html>
+
+

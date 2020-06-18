@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head >
+	<title>Bank</title><!--Transaction-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	
+	<style>	
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+			background-color: #111;
+			text-decoration:none;	
+		}
+		a:hover:not(.active) {
+			background-color: #a6a6a6;
+			text-decoration:underline;
+		}
+		
+		img:hover:not(.active) {
+			opacity:0.6;
+		}
+		
+		.active {
+			background-color: #4CAF50;
+		}
+		
+		a:link, a:visited {
+			color: white;
+			text-decoration: none;
+			cursor: auto;
+		}
+		
+		
+		.search-form {
+			border-radius: 30px 0px 0px 30px;
+		}
+		 .search-btn {
+			border-radius: 0px 30px 30px 0px;
+			cursor:pointer;
+		}
+
+		.imgcontainer {
+		  text-align: center;
+		  margin: 24px 0 12px 0;
+		  position: relative;
+		}
+		.imgcontainer {
+		  text-align: center;
+		  position: relative;
+		}
+
+		img.avatar {
+		  width:8%;
+		  border-radius: 20%;
+		  margin-top : 70px;
+		  margin-right:130px;
+		  margin-bottom:0px;
+		}
+		img.avatar1 {
+		  width:8%;
+		  border-radius: 20%;
+		  margin-top : 70px;
+		  margin-left:130px;
+		  margin-bottom:0px;
+		}
+		.label1 {
+		  text-align: left;
+		  margin-right:100px;
+		  margin-top:0px;
+		  font-size:16px;
+		}
+		.label2 {
+		  text-align: right ;
+		  margin-left:100px;
+		  margin-top:0px;
+		  font-size:16px;
+		}
+		/* Extra styles for the cancel button */
+		.cancelbtn {
+		  width: auto;
+		  padding: 10px 18px;
+		  background-color: #f44336;
+		}
+		button:hover {
+		  opacity: 0.8;
+		}
+		
+		span.psw {
+		  float: right;
+		  padding-top: 16px;
+		}
+
+		/* The Modal (background) */
+		.modal {
+		  position: fixed; 
+		  left: 0;
+		  top: 0;
+		  padding-top: 70px;
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		  width: 90%;
+
+		}
+
+	</style>
+
+
+		
+</head>
+<body >
+<div class = "container-fluid" id = "hello" >
+
+	<div class="jumbotron" style = "margin:0px;">
+		<h1 style = "text-align:center;">Bank</h1>
+	</div>
+
+	<nav class="navbar navbar-inverse" style = "margin:0px;">
+
+		<ul class="nav navbar-nav">
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#Menu">Menu<span class="caret"></span></a>
+			<ul class="dropdown-menu" style = "background-color: white; color:black;" >
+			  <li><a data-toggle="collapse" data-target="#Profile" href="#Login_As_Customer" id = "myBtn3">Profile</a></li>
+			  <li><a href="#Apply_passbook" id = "myBtn">Apply Passbook</a></li>
+			  <li><a href="#Apply_chequebook" id = "myBtn1">Apply Chequebook</a></li>
+			  <li><a href="#Change_password">Change Password</a></li>
+			  <li><a href="#Send_account" id = "myBtn9">Change Account</a></li>
+			  <li><a href="#Help">Help</a></li>
+			</ul>
+		  </li>
+		  <li><a href="#Transfer" id= "myBtn2" >Transfer Fund</a></li>
+		  <li><a href="#Statement" id = "myBtn7">Statements</a></li>
+		  <li><a href="#Logout">Logout</a></li>
+		</ul>
+	</nav>	
+	<center>
+		<div class = "media-body">
+			<div class = "panel panel-default" id = "cust_account_details" style = "width:70%; margin-top:30px;">
+				
+				<div class = "panel-body">
+						
+					<table class = "table table-bordered">
+						
+						<tbody>
+							
+							<tr >
+							
+								<td style = "width:30%;padding:15px;" align = "center">Account Number</td>
+								<td style = "width:30%;padding:15px;">{{account.Ac_no}}</td>
+							</tr>
+							<tr>
+								<td style = "width:30%;padding:15px;" align = "center">Balance</td>
+								<td style = "width:30%;padding:15px;"  >{{account.Ac_balance}}</td>
+							</tr>
+
+						</tbody>
+						
+					</table>
+					
+				</div>
+
+			</div>
+
+		</div>
+		<div class = "media-right">
+			<img src = "{{Customer_Info.Image.url}}" 	style = "width:150px;height:150px;margin-top:30px;margin-right:150px;" >
+		</div>
+	</center>
+		
+</div>
+
+<!-- modal for appplying passbok -->
+<div class="modal fade" id="apply_for_passbook" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+	  <center>
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; height : 100%; width :50%;" >
+        <div class="modal-body" style="padding:25px 25px;">
+			<center>
+			<div>
+				<form  role="form" method="post" action = "applypassbook">
+					{% csrf_token %}
+					<p style = "font-size:14px;"> <b>Do you want to apply for Passbook ? </b></p>
+					<br>
+						<input type ="hidden" name = "custid" value = "{{Customer_Info.id}}" style="display:none;">
+						<input type="submit" class="btn btn-success btn-default pull-left" value = "Confirm" style = "margin-left:5px;">
+						<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
+					<br><br>
+				
+				</form>
+			</div>
+			<center>
+        </div>
+        
+      </div>
+	  </center>
+      
+    </div>
+</div>
+
+<!-- modal for applying chequebook -->
+
+<div class="modal fade" id="apply_for_chequebook" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+	  <center>
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; height : 100%; width :50%;" >
+        <div class="modal-body" style="padding:25px 25px;">
+			<center>
+			<div>
+			<form  role="form" method="post" action = "applychequebook">
+			{% csrf_token %}
+			<p style = "font-size:14px;"> <b>Do you want to apply for Chequebook ? </b></p>
+			<br>
+			<input type ="hidden" name = "custid" value = "{{Customer_Info.id}}" style="display:none;">
+			<input type="submit" class="btn btn-success btn-default pull-left"  value = "Confirm" style = "margin-left:5px;">
+			<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
+			<br><br>
+			
+			</form>
+			</div>
+			<center>
+        </div>
+        
+      </div>
+	  </center>
+      
+    </div>
+</div>
+
+<!-- modal for fund tranfer -->
+
+<div class="modal fade" id="fund_transfer"  role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px;" >
+		 <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title"><b>Transaction</b></h4>
+		 </div>
+        <div class="modal-body" style="padding:25px 25px;">
+          <form  role="form" method="post" action = "#transaction">
+            <div class="form-group" style = "margin-bottom:25px;">
+              <label for="Receiver_Name"> Receiver Name: </label>
+              <input type="text" class="form-control" name = "Receiver_Name" id="Receiver_Name" placeholder="Enter Receiver Name" style = "width:55%;float:right;" required>
+            </div>
+			
+			<div class="form-group" style = "margin-bottom:25px;">
+              <label for="Receiver_Ac_Number"> Receiver Account No.: </label>
+              <input type="text" class="form-control" name = "Receiver_Ac_Number" id="Receiver_Ac_Number" placeholder="Enter Account No." style = "width:55%;float:right;" required>
+            </div>
+			<div class="form-group" style = "margin-bottom:25px;">
+              <label for="Amount "> Amount: </label>
+              <input type="text" class="form-control" name= "Amount" id="Amount" placeholder="Enter Amount" style = "width:55%;float:right;" required>
+            </div>
+
+            <div class="modal-footer">
+				<input type="submit" class="btn btn-success btn-default pull-left" value = "ADD" style = "margin-left:5px;">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
+			</div>
+
+          </form>
+        </div>
+
+      </div>
+      
+    </div>
+</div>
+
+<!-- modal for customer profile -->
+
+<div class="modal fade" id="customer_profile" role="dialog" style = 'display: none;'>
+    <div class="modal-dialog">
+      <!-- Modal content-->
+		<div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:120%;" >
+			<div class="modal-body" style="padding:25px 25px;">
+			
+				<div class = "media">
+					<div class= "media-body">
+						
+						<table class = "table table-bordered">
+							<tbody>
+							
+								<tr>
+									<td style = "width :40%;">Account Holder</td>
+									<td>{{Customer_Info.name}}</td>
+								</tr>
+								<tr>
+									<td>Customer ID</td>
+									<td>{{Customer_Info.id}}</td>
+								</tr>
+								<tr>
+									<td>Phone Number</td>
+									<td>{{Customer_Info.Phone_no}}</td>
+								</tr>
+								<tr>
+									<td>Street Address</td>
+									<td>{{Customer_Info.Street_add}}</td>
+								</tr>
+								<tr>
+									<td>City</td>
+									<td>{{Customer_Info.City}}</td>
+								</tr>
+								<tr>
+									<td>State</td>
+									<td>{{Customer_Info.State}}</td>
+								</tr>
+								<tr>
+									<td>Zip Code</td>
+									<td>{{Customer_Info.Zipcode}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<table class = "table table-bordered">
+							<tbody>
+							
+								<tr>
+									<td style = "width:40%;">Account Number</td>
+									<td>{{account.Ac_no}}</td>
+								</tr>
+								<tr>
+									<td>Balance</td>
+									<td>{{account.Ac_balance}}</td>
+								</tr>
+								<tr>
+									<td>Transaction Limit</td>
+									<td>{{account.Trans_limit}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+	
+					</div>
+					<div class="media-right">
+						<img src = "{{Customer_Info.Image.url}}" style = "width:150px;height : 150px; padding-left:30px;">
+					</div>
+					
+					<button type="button" id = "cancel_cust_data" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:35px;">Cancel</button>
+				</div>
+		 
+			</div>
+			
+			
+		</div>
+	
+	
+    </div>
+</div>
+
+
+<!-- modal for statements -->
+
+<center>
+<div class="modal fade" id="statements" role="dialog" >
+    <div class="modal-dialog">
+      <!-- Modal content-->
+		<div class="modal-content" style =  "margin-left:10px; width:140%;" >
+			 <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"><b>Statements</b></h4>
+			 </div>
+			<div class="modal-body" style="padding:25px 25px;">	
+				<table class = "table table-bordered">
+					<thead>
+						<tr>
+							<th>Date </th>
+							<th> Description</th>
+							<th>Cheque No. </th>
+							<th>Withdrawals</th>
+							<th>Deposits</th>
+							<th>Balance</th>
+						</tr>
+					</thead>
+							
+					<tbody>
+						{% for trans in statements %}
+						<tr>
+							<td>{{trans.Date}}</td>
+							<td>{{trans.Description}}</td>
+							<td>{{trans.Cheque_no}}</td>
+							<td>{{trans.Withdrawals}}</td>
+							<td>{{trans.Deposits}}</td>
+							<td>{{trans.Balance}}</td>
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+					
+				</table>
+			</div>
+			
+			
+		</div>
+	
+	
+    </div>
+</div>
+
+</center>
+
+<!-- modal for choose account on page load-->
+<!--
+<center>
+<div class="modal fade" id="customer_main_page" role="dialog" >
+    <div class="modal-dialog">
+       Modal content
+		<div class="modal-content" style =  "margin-left:10px; width:80%;" >
+			<div class = "modal-header">
+			<h4 class="modal-title"><b>Choose Account</b></h4>
+			</div>
+			<div class="modal-body" style="padding:25px 25px;">		
+				{% for account in accounts_Info %}
+					<button type="button" id = "refer_to_account_details" onclick = "show_account(this)" value = {{account.Ac_no}} style="margin:10px;">{{account.Ac_no}}</button><br>
+				{% endfor %}
+			</div>	
+		</div>
+    </div>
+</div>
+
+</center>-->
+
+
+<!-- modal for change account -->
+
+<center>
+<div class="modal fade" id="change_account" role="dialog" >
+    <div class="modal-dialog">
+      <!-- Modal content-->
+		<div class="modal-content" style =  "margin-left:10px; width:80%;" >
+			<div class = "modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title"><b>Choose Account</b></h4>
+			</div>
+			<div id = "body_choose_account" class="modal-body" style="padding:25px 25px;"></div>	
+			<div class = "modal-footer">
+				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
+			</div>
+			
+		</div>
+    </div>
+</div>
+
+</center>
+
+
+
+<script>
+
+var account_main;
+
+function show_account(objButton){
+	{% for account in accounts_Info %}
+		if(objButton.value == account.Ac_no){
+			account_main = account
+		}
+
+	{% endfor %}
+}
+
+
+$("#myBtn").click(function(){
+$("#apply_for_passbook").modal();
+
+});
+
+
+
+
+$("#myBtn1").click(function(){
+$("#apply_for_chequebook").modal();
+});
+
+
+
+
+
+
+$("#myBtn2").click(function(){
+$("#fund_transfer").modal();
+});
+
+
+// jquery for statements
+
+
+$("#myBtn7").click(function(){
+$("#statements").modal();
+});
+
+
+
+$("#myBtn3").click(function(){
+$("#customer_profile").modal();
+});
+
+
+
+$("#myBtn9").click(function(){
+	var custid = "{{Customer_Info.id}}"
+	var choose = $('.xyz').length
+	if(choose == 0){
+		$.ajax(
+			{
+				url: 'send_account',
+				data: {'custid' : custid},
+				dataType: 'html',
+				success:function(data){
+					
+					let x = data.split(",")
+		
+					for(let i = 0; i < x.length-1; i++){
+						let b = document.createElement("button")
+						let textnode = document.createTextNode(x[i])
+						b.appendChild(textnode)
+						b.className = "xyz"
+						b.style = "margin:10px"
+						document.getElementById('body_choose_account').appendChild(b)
+					}
+					// $('#xyz').html(data)
+					$("#change_account").modal()
+					$(".xyz").click(function(){
+						var acc = $(this).html()
+						$.ajax(
+							{
+								url: "get_new_account",
+								data: {'account_no':acc, 'custid': custid},
+								success: function(data){
+									document.open()
+									document.write(data)
+									document.close()
+								}
+							}
+						)
+						$("#change_account").modal('hide');
+						document.getElementById("hello").style.display = "block";
+
+
+					})
+					
+				}
+				
+			}
+		)
+	}
+	else{
+		location.reload(true)
+	}
+// $("#change_account").modal()
+});
+
+
+// jquery for choose account on page load
+
+$("#customer_main_page").modal({backdrop:"static"},'show');
+
+
+
+
+$(document).ready(function(){
+  $("#abc").click(function(){
+	$("#customer_main_page").modal('hide');
+	document.getElementById("hello").style.display = "block";
+	
+  });
+});
+
+
+// $(".xyz").click(function(){
+// console.log('hii')
+// $("#change_account").modal('hide');
+// document.getElementById("hello").style.display = "block";
+
+// });
+
+
+</script>
+
+</body>
+</html>
