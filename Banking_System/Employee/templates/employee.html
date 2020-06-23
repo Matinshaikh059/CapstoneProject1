@@ -562,6 +562,101 @@
     </div>
 </div>
 
+<!--modal for withdraw cash-->
+
+<div class="modal fade" id="withdraw_cash_modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:100%;">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+         	<h4 class="modal-title">Cash Withdrawal</h4>
+        </div>
+        <div class="modal-body" style="padding:25px 25px;">
+			<div class="modal-body" style="padding:25px 25px;">
+				<form role="form" method="post" action="withdraw-cash" enctype="multipart/form-data">
+					{% csrf_token %}
+	  
+				  <div class="form-group" style = "margin-bottom:0px;">
+					  <label for="account_no" style = " margin-top: 10px">Select Account No: </label>
+					  <select name="Account_no" style = "width:60%;float:right;padding:7px;" required>
+						{% for account in accounts_Info %}
+							<option value="{{account.Ac_no}}" selected>{{account.Ac_no}}</option>
+						{% endfor %}
+					</select>
+				  </div>
+	  
+				  <div class="form-group" style = "margin-bottom:0px;">
+					  <label for="amount" style = " margin-top: 10px">Amount: </label>
+					  <input type="text" class="form-control" name="amount"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "Enter amount" required><br><br>
+				  </div>
+	  
+				  
+				  <div class="modal-footer">
+					  <input type="submit" class="btn btn-success btn-default pull-left" value="Withdraw" style = "margin-left:35px;">
+					  <button type="button" data-dismiss="modal" class="btn btn-danger btn-default pull-right" style = "margin-right:35px;">Cancel</button>
+				  </div>
+	  
+				</form>
+			</div>
+        </div>
+		
+        
+      </div>
+      
+    </div>
+</div>
+
+
+
+
+<!--modal for deposit cash-->
+
+<div class="modal fade" id="deposit-cash-modal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style =  "margin-left:10px; margin-right:10px; width:100%;">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+         	<h4 class="modal-title">Cash Deposit</h4>
+        </div>
+        <div class="modal-body" style="padding:25px 25px;">
+			<div class="modal-body" style="padding:25px 25px;">
+				<form role="form" method="post" action="deposit-cash" enctype="multipart/form-data">
+					{% csrf_token %}
+	  
+				  <div class="form-group" style = "margin-bottom:0px;">
+					  <label for="Account_no" style = " margin-top: 10px">Select Account No: </label>
+					  <select name="Account_no" style = "width:60%;float:right;padding:7px;" required>
+						{% for account in accounts_Info %}
+							<option value="{{account.Ac_no}}" selected>{{account.Ac_no}}</option>
+						{% endfor %}
+					</select>
+				  </div>
+	  
+				  <div class="form-group" style = "margin-bottom:0px;">
+					  <label for="amount" style = " margin-top: 10px">Amount: </label>
+					  <input type="text" class="form-control" name="amount"  style = "width:60%;float:right;padding:2px;margin-top:5px;"  value = "Enter amount" required><br><br>
+				  </div>
+	  
+				  
+				  <div class="modal-footer">
+					  <input type="submit" class="btn btn-success btn-default pull-left" value="Deposit" style = "margin-left:35px;">
+					  <button type="button" data-dismiss="modal" class="btn btn-danger btn-default pull-right" style = "margin-right:35px;">Cancel</button>
+				  </div>
+	  
+				</form>
+			</div>
+        </div>
+		
+        
+      </div>
+      
+    </div>
+</div>
+
 <script>
 // Get the modal
 
@@ -608,6 +703,14 @@ $(document).ready(function(){
 	document.getElementById("details_about_customer").style.display = "none";
   });
 });
+
+$("#Withdraw_cash").click(function(){
+	$("#withdraw_cash_modal").modal()
+})
+
+$("#Deposit_cash").click(function(){
+	$("#deposit-cash-modal").modal()
+})
 
 
 </script>

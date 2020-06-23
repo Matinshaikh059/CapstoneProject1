@@ -7,4 +7,6 @@ urlpatterns = [
     path("add_account", views.add_account),
     path("update_cust_details", views.update_cust_details),
     path("emp_search_customer", views.emp_search_customer),
+    path("withdraw-cash", views.withdraw_cash),
+    path("deposit-cash", views.deposit_cash),
 ]

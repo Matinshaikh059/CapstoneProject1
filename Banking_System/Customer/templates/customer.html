@@ -259,15 +259,13 @@
 			<h4 class="modal-title"><b>Transaction</b></h4>
 		 </div>
         <div class="modal-body" style="padding:25px 25px;">
-          <form  role="form" method="post" action = "#transaction">
-            <div class="form-group" style = "margin-bottom:25px;">
-              <label for="Receiver_Name"> Receiver Name: </label>
-              <input type="text" class="form-control" name = "Receiver_Name" id="Receiver_Name" placeholder="Enter Receiver Name" style = "width:55%;float:right;" required>
-            </div>
-			
+          <form  role="form" method="post" action = "transfer_fund">
+			{% csrf_token %}
 			<div class="form-group" style = "margin-bottom:25px;">
+				<input type="hidden" name="Customer" value = "{{Customer_Info}}">
+				<input type="hidden" name="sender_acc_no" value = "{{account.Ac_no}}">
               <label for="Receiver_Ac_Number"> Receiver Account No.: </label>
-              <input type="text" class="form-control" name = "Receiver_Ac_Number" id="Receiver_Ac_Number" placeholder="Enter Account No." style = "width:55%;float:right;" required>
+              <input type="text" class="form-control" name = "reciever_acc_no" id="Receiver_Ac_Number" placeholder="Enter Account No." style = "width:55%;float:right;" required>
             </div>
 			<div class="form-group" style = "margin-bottom:25px;">
               <label for="Amount "> Amount: </label>
@@ -275,7 +273,7 @@
             </div>
 
             <div class="modal-footer">
-				<input type="submit" class="btn btn-success btn-default pull-left" value = "ADD" style = "margin-left:5px;">
+				<input type="submit" class="btn btn-success btn-default pull-left" value = "Transfer" style = "margin-left:5px;">
 				<button type="button" class="btn btn-danger btn-default pull-right" data-dismiss="modal" style = "margin-right:5px;">Cancel</button>
 			</div>
 
@@ -385,26 +383,14 @@
 					<thead>
 						<tr>
 							<th>Date </th>
-							<th> Description</th>
-							<th>Cheque No. </th>
-							<th>Withdrawals</th>
-							<th>Deposits</th>
-							<th>Balance</th>
+							<th>Account_no </th>
+							<th> Details</th>
+							<th>Amount</th>
 						</tr>
 					</thead>
 							
-					<tbody>
-						{% for trans in statements %}
-						<tr>
-							<td>{{trans.Date}}</td>
-							<td>{{trans.Description}}</td>
-							<td>{{trans.Cheque_no}}</td>
-							<td>{{trans.Withdrawals}}</td>
-							<td>{{trans.Deposits}}</td>
-							<td>{{trans.Balance}}</td>
-							
-						</tr>
-						{% endfor %}
+					<tbody id = "stateme">
+						
 					</tbody>
 					
 				</table>
@@ -584,6 +570,36 @@ $(document).ready(function(){
 	
   });
 });
+
+$("#myBtn7").click(function(){
+
+	if($(".arow").length == 0 ){
+		$.ajax(
+			{
+				url: "get_statements",
+				data: {'account_no':'{{account.Ac_no}}', 'custid': "{{Customer_Info.id}}"},
+				success: function(data){
+
+					for(let i=0; i<data.length; i++){
+						let row = document.createElement("tr")
+						row.className = "arow"
+						d = data[i]
+						for(let j=0; j<d.length; j++){
+							let col = document.createElement("td")
+							let textnode = document.createTextNode(d[j])
+							col.appendChild(textnode)
+							row.appendChild(col)
+						}
+						document.getElementById("stateme").appendChild(row)
+
+
+					}
+				}
+			}
+			
+		)
+	}
+})
 
 
 // $(".xyz").click(function(){

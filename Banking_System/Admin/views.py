@@ -25,14 +25,24 @@ def add_employee(request):
 
 def remove_employee(request):
 
-    id = request.POST["Employee_Id"]
-    employee = Employee.objects.get(id = id)
+    try:
+        id = request.POST["Employee_Id"]
+        employee = Employee.objects.get(id = id)
+    except Exception as e:
+        return render(request, 'Error.html',{'message': 'Employee'})
+    
+    
     employee.delete()
     return render(request, 'admin.html')
 
 def search_customer(request):
     cust_id = request.POST["cust_search"]
-    cust = Customer.objects.get(id = cust_id)
+    try:
+        cust = Customer.objects.get(id = cust_id)
+    except Exception as e:
+        return render(request, 'Error.html',{'message': 'Customer'})
+    
+    
     accounts = Accounts.objects.filter(Customer = cust_id)
     return render(request, 'admin.html', {'Customer_select': 0, 'Customer_Info':cust,'accounts_Info':accounts})
 
@@ -41,7 +51,10 @@ def set_transaction_limit(request):
     ac_no = request.POST["account_no"]
     limit = request.POST["transaction_limit"]
 
-    account = Accounts.objects.get(Ac_no = ac_no)
+    try:
+        account = Accounts.objects.get(Ac_no = ac_no)
+    except Exception as e:
+        return render(request, 'Error.html',{'message': 'Account Number'})
     account.Trans_limit = limit
     account.save()
 
@@ -49,12 +62,21 @@ def set_transaction_limit(request):
 
 
 def search_employee(request):
-    emp_id = request.POST["emp_search"]
-    emp = Employee.objects.get(id = emp_id)
+    try:
+        emp_id = request.POST["emp_search"]
+        emp = Employee.objects.get(id = emp_id)
+    except Exception as e:
+        return render(request, 'Error.html',{'message': 'Employee'})
+    
     return render(request, 'admin.html', {'Employee_select':0,'Emp_Info':emp})
 
 
 def update_employee_details(request):
+    try:
+        emp_id = request.POST["id"]
+        emp = Employee.objects.get(id = emp_id)
+    except Exception as e:
+        return render(request, 'Error.html',{'message': 'Employee'})
     emp_id = request.POST["id"]
     emp = Employee.objects.get(id = emp_id)
     emp.name = request.POST["name"]

@@ -6,4 +6,6 @@ urlpatterns = [
     path('get_new_account', views.new_account),
     path('applypassbook', views.applypassbook),
     path('applychequebook', views.applychequebook),
+    path('transfer_fund', views.transfer_fund),
+    path('get_statements', views.statements),
 ]

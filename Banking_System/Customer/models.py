@@ -33,4 +33,21 @@ class Customer_Request(models.Model):
     class Meta:
         db_table = "Customer_Request"
 
+class DepositsWithdrawals(models.Model):
+    date = models.DateField()
+    Account_no = models.ForeignKey(Accounts, on_delete = models.CASCADE) 
+    amount = models.IntegerField()
+
+    class Meta:
+        db_table = "Depositswithdrawals"
+
+class Transfers(models.Model):
+    date = models.DateField()
+    from_account = models.ForeignKey(Accounts, on_delete = models.CASCADE, related_name = "from_account") 
+    to_account = models.ForeignKey(Accounts, on_delete = models.CASCADE, related_name = "to_account")
+    amount = models.IntegerField()
+
+    class Meta:
+        db_table = "Transfers"
+
 # Create your models here.
